@@ -153,7 +153,8 @@ class Apple(GameObject):
 
 def display_length(snake_length):
     """Отображение длины змейки на экране."""
-    text_surface = FONT.render(f"Length: {snake_length}", True, (255, 255, 255))
+    text = f"Length: {snake_length}"
+    text_surface = FONT.render(text, True, (255, 255, 255))
     screen.blit(text_surface, (10, 10))
 
 

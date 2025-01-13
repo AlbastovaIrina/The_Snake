@@ -44,6 +44,7 @@ clock = pg.time.Clock()
 pg.font.init()
 FONT = pg.font.Font(None, 30)
 
+
 class GameObject:
     """Класс отвечающий за отрисовку игрового поля."""
 
@@ -56,19 +57,20 @@ class GameObject:
         pass
 
     def draw_cell(self, position, body_color):
-         """Отрисовывает ячейки на игровом поле."""
-         rect_x, rect_y = position
-         rect = pg.Rect(rect_x, rect_y, GRID_SIZE, GRID_SIZE)
-         pg.draw.rect(screen, body_color, rect)
-         pg.draw.rect(screen, BORDER_COLOR, rect, 1)
+        """Отрисовывает ячейки на игровом поле."""
+        rect_x, rect_y = position
+        rect = pg.Rect(rect_x, rect_y, GRID_SIZE, GRID_SIZE)
+        pg.draw.rect(screen, body_color, rect)
+        pg.draw.rect(screen, BORDER_COLOR, rect, 1)
+
 
 class Snake(GameObject):
     """Класс отвечающий за поведение змейки и ее отрисовку"""
 
     def __init__(self, body_color=SNAKE_COLOR):
-         """Инициализирует змейку на игровом поле."""
-         super().__init__(body_color)
-         self.reset()
+        """Инициализирует змейку на игровом поле."""
+        super().__init__(body_color)
+        self.reset()
 
     def draw(self):
         """Рисуем змейку на поле."""
@@ -83,8 +85,7 @@ class Snake(GameObject):
         new_head_y = (head_y + dy * GRID_SIZE) % SCREEN_HEIGHT
         self.positions.insert(0, (new_head_x, new_head_y))
         if len(self.positions) > self.length:
-          self.positions.pop()
-
+            self.positions.pop()
 
     def get_head_position(self):
         """Метод для возвращения позиции головы змейки."""
@@ -97,11 +98,11 @@ class Snake(GameObject):
             self.next_direction = None
 
     def reset(self) -> None:
-         """Метод, возвращающий змейку в начальное состояние."""
-         self.direction = choice([UP, RIGHT, DOWN, LEFT])
-         self.length = 1
-         self.next_direction = None
-         self.positions = [self.position]
+        """Метод, возвращающий змейку в начальное состояние."""
+        self.direction = choice([UP, RIGHT, DOWN, LEFT])
+        self.length = 1
+        self.next_direction = None
+        self.positions = [self.position]
 
 
 def handle_keys(game_object):
@@ -124,6 +125,7 @@ def handle_keys(game_object):
                 pg.quit()
                 raise SystemExit
 
+
 class Apple(GameObject):
     """Класс, описывающий яблоко и манипуляции с ним."""
 
@@ -138,19 +140,20 @@ class Apple(GameObject):
         new_y = randrange(0, SCREEN_HEIGHT, GRID_SIZE)
         new_apple = (new_x, new_y)
         while new_apple in positions:
-             new_x = randrange(0, SCREEN_WIDTH, GRID_SIZE)
-             new_y = randrange(0, SCREEN_HEIGHT, GRID_SIZE)
-             new_apple = (new_x, new_y)
+            new_x = randrange(0, SCREEN_WIDTH, GRID_SIZE)
+            new_y = randrange(0, SCREEN_HEIGHT, GRID_SIZE)
+            new_apple = (new_x, new_y)
 
         self.position = new_apple
 
     def draw(self):
-         """Рисуем яблоко на поле."""
-         self.draw_cell(self.position, self.body_color)
+        """Рисуем яблоко на поле."""
+        self.draw_cell(self.position, self.body_color)
+
 
 def display_length(snake_length):
     """Отображение длины змейки на экране."""
-    text_surface = FONT.render(f"Длина: {snake_length}", True, (255, 255, 255))
+    text_surface = FONT.render(f"Length: {snake_length}", True, (255, 255, 255))
     screen.blit(text_surface, (10, 10))
 
 
@@ -180,6 +183,7 @@ def main():
         snake.draw()
         display_length(snake.length)
         pg.display.flip()
+
 
 if __name__ == '__main__':
     main()
